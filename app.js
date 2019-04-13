@@ -27,15 +27,18 @@ $("#submit").click(function(event) {
   let month = $("#emp-stmonth").val();
   let day = $("#emp-stday").val();
   let year = $("#emp-styear").val();
+<<<<<<< HEAD
+  let start = month.toString() + "/" + day.toString() + "/" + year.toString();
+=======
   let start = month.toString() + '/' + day.toString() + '/' + year.toString();
   
+>>>>>>> 6448f3f23da93eca7dc40a7c090ad55a7bacc0e9
 
   database.ref().push({
     employee: employee,
     role: role,
     startDate: start,
     monthlyRate: rate
-   
   });
 });
 //setup on click of submit button to get data from form (.val())
@@ -55,10 +58,39 @@ database.ref().on(
   let difference = today.diff(months, 'months');
     // clickCounter = snapshot.val().employee;
 
+<<<<<<< HEAD
+    // $("#employee-name").text(snapshot.val().employee);
+    // $("#role").text(snapshot.val().role);
+    // $("#start-date").text(snapshot.val().startDate);
+
+
+      $('tbody').append(`
+      <tr>
+          <td id="employee-name">${snapshot.val().employee}</td>
+          <td id="role">${snapshot.val().role}</td>
+          <td id="start-date">${snapshot.val().startDate}</td>
+          <td id="monthly-rate">${snapshot.val().monthlyRate}</td>
+          <hr>
+      </tr>
+    `)
+    // (function() {
+    //   return `
+    //     <tr>
+    //         <td id="employee-name">${snapshot.val().employee}</td>
+    //         <td id="role"></td>
+    //         <td id="start-date"></td>
+    //         <td id="monthly-rate"></td>
+    //         <td id="total-billed"></td>
+    //         <hr>
+    //     </tr>
+    //   `;
+    // })();
+=======
     $("#employee-name").text(snapshot.val().employee);
     $("#role").text(snapshot.val().role);
     $("#start-date").text(snapshot.val().startDate);
     $("#months-worked").text(difference);
+>>>>>>> 6448f3f23da93eca7dc40a7c090ad55a7bacc0e9
   },
   function(errorObject) {
     console.log("The read failed: " + errorObject.code);
@@ -73,6 +105,7 @@ function newRow(movie) {
         <td id="start-date"></td>
         <td id="monthly-rate"></td>
         <td id="total-billed"></td>
+        <hr>
     </tr>
     `;
 }
