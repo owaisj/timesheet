@@ -27,7 +27,12 @@ $("#submit").click(function(event) {
   let month = $("#emp-stmonth").val();
   let day = $("#emp-stday").val();
   let year = $("#emp-styear").val();
+<<<<<<< HEAD
   let start = month.toString() + "/" + day.toString() + "/" + year.toString();
+=======
+  let start = month.toString() + '/' + day.toString() + '/' + year.toString();
+  
+>>>>>>> 6448f3f23da93eca7dc40a7c090ad55a7bacc0e9
 
   database.ref().push({
     employee: employee,
@@ -48,9 +53,12 @@ database.ref().on(
   "child_added",
   function(snapshot) {
     console.log(snapshot.val());
-
+    var months = moment(snapshot.val().startDate, 'MM/DD/YYYY');
+  let today = moment();
+  let difference = today.diff(months, 'months');
     // clickCounter = snapshot.val().employee;
 
+<<<<<<< HEAD
     // $("#employee-name").text(snapshot.val().employee);
     // $("#role").text(snapshot.val().role);
     // $("#start-date").text(snapshot.val().startDate);
@@ -77,6 +85,12 @@ database.ref().on(
     //     </tr>
     //   `;
     // })();
+=======
+    $("#employee-name").text(snapshot.val().employee);
+    $("#role").text(snapshot.val().role);
+    $("#start-date").text(snapshot.val().startDate);
+    $("#months-worked").text(difference);
+>>>>>>> 6448f3f23da93eca7dc40a7c090ad55a7bacc0e9
   },
   function(errorObject) {
     console.log("The read failed: " + errorObject.code);
