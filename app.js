@@ -28,6 +28,7 @@ $("#submit").click(function(event) {
   let day = $("#emp-stday").val();
   let year = $("#emp-styear").val();
   let start = month.toString() + '/' + day.toString() + '/' + year.toString();
+  
 
   database.ref().push({
     employee: employee,
@@ -49,12 +50,15 @@ database.ref().on(
   "child_added",
   function(snapshot) {
     console.log(snapshot.val());
-
+    var months = moment(snapshot.val().startDate, 'MM/DD/YYYY');
+  let today = moment();
+  let difference = today.diff(months, 'months');
     // clickCounter = snapshot.val().employee;
 
     $("#employee-name").text(snapshot.val().employee);
     $("#role").text(snapshot.val().role);
     $("#start-date").text(snapshot.val().startDate);
+    $("#months-worked").text(difference);
   },
   function(errorObject) {
     console.log("The read failed: " + errorObject.code);
