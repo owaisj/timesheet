@@ -14,11 +14,6 @@ firebase.initializeApp(config);
 var database = firebase.database();
 //=======================================================
 
-//create variables for
-//date
-//monthly rate
-//employee name
-
 $("#submit").click(function(event) {
   event.preventDefault();
   let employee = $("#emp-name").val();
@@ -36,72 +31,31 @@ $("#submit").click(function(event) {
     monthlyRate: rate
   });
 });
-//setup on click of submit button to get data from form (.val())
-//add prevent default
-//push data recieved to database in a new object
-//
 
-//on child added
-//grab data from database
-//add user data to page for display
 database.ref().on(
   "child_added",
   function(snapshot) {
     console.log(snapshot.val());
-    var months = moment(snapshot.val().startDate, 'MM/DD/YYYY');
-  let today = moment();
-  let difference = today.diff(months, 'months');
-    // clickCounter = snapshot.val().employee;
-    var totalBilled = (difference * (snapshot.val().monthlyRate));
+    var months = moment(snapshot.val().startDate, "MM/DD/YYYY");
+    let today = moment();
+    let difference = today.diff(months, "months");
+    var totalBilled = difference * snapshot.val().monthlyRate;
 
-    console.log(difference)
-    // $("#employee-name").text(snapshot.val().employee);
-    // $("#role").text(snapshot.val().role);
-    // $("#start-date").text(snapshot.val().startDate);
+    console.log(difference);
 
-
-      $('tbody').append(`
+    $("tbody").append(`
       <tr>
           <td id="employee-name">${snapshot.val().employee}</td>
           <td id="role">${snapshot.val().role}</td>
           <td id="start-date">${snapshot.val().startDate}</td>
+          <td id="months-worked">${difference}</td>
           <td id="monthly-rate">${snapshot.val().monthlyRate}</td>
+          <td id="total-billed">${totalBilled}</td>
           <hr>
       </tr>
-    `)
-    // (function() {
-    //   return `
-    //     <tr>
-    //         <td id="employee-name">${snapshot.val().employee}</td>
-    //         <td id="role"></td>
-    //         <td id="start-date"></td>
-    //         <td id="monthly-rate"></td>
-    //         <td id="total-billed"></td>
-    //         <hr>
-    //     </tr>
-    //   `;
-    // })();
-    $("#employee-name").text(snapshot.val().employee);
-    $("#role").text(snapshot.val().role);
-    $("#start-date").text(snapshot.val().startDate);
-    $("#months-worked").text(difference);
-    $("#monthly-rate").text(snapshot.val().monthlyRate);
-    $("#total-billed").text(totalBilled);
+    `);
   },
   function(errorObject) {
     console.log("The read failed: " + errorObject.code);
   }
 );
-
-function newRow(movie) {
-  return `
-    <tr>
-        <td id="employee-name"></td>
-        <td id="role"></td>
-        <td id="start-date"></td>
-        <td id="monthly-rate"></td>
-        <td id="total-billed"></td>
-        <hr>
-    </tr>
-    `;
-}
