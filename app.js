@@ -54,11 +54,15 @@ database.ref().on(
   let today = moment();
   let difference = today.diff(months, 'months');
     // clickCounter = snapshot.val().employee;
+    var totalBilled = (difference * (snapshot.val().monthlyRate));
 
+    console.log(difference)
     $("#employee-name").text(snapshot.val().employee);
     $("#role").text(snapshot.val().role);
     $("#start-date").text(snapshot.val().startDate);
     $("#months-worked").text(difference);
+    $("#monthly-rate").text(snapshot.val().monthlyRate);
+    $("#total-billed").text(totalBilled);
   },
   function(errorObject) {
     console.log("The read failed: " + errorObject.code);
