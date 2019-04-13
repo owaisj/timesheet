@@ -23,14 +23,18 @@ $("#submit").click(function(event) {
   event.preventDefault();
   let employee = $("#emp-name").val();
   let role = $("#emp-role").val();
-  let start = $("#emp-stdate").val();
   let rate = $("#emp-rate").val();
+  let month = $("#emp-stmonth").val();
+  let day = $("#emp-stday").val();
+  let year = $("#emp-styear").val();
+  let start = month.toString() + '/' + day.toString() + '/' + year.toString();
 
   database.ref().push({
     employee: employee,
     role: role,
     startDate: start,
     monthlyRate: rate
+   
   });
 });
 //setup on click of submit button to get data from form (.val())
@@ -49,6 +53,8 @@ database.ref().on(
     // clickCounter = snapshot.val().employee;
 
     $("#employee-name").text(snapshot.val().employee);
+    $("#role").text(snapshot.val().role);
+    $("#start-date").text(snapshot.val().startDate);
   },
   function(errorObject) {
     console.log("The read failed: " + errorObject.code);
